@@ -1,0 +1,610 @@
+<svg version="1.1" baseProfile="full" width="5146.5" height="1317.0" viewbox="0 0 5146.5 1317" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+<desc >#.interface: fill=lightblue
+#.enumeration: fill=lightgreen
+#.type: fill=lightgray
+[AzureAi|-_openaiurl: string;-_openaipikey: string;-_ttsapikey: string;-_ttsregion: string;-_inProgress: boolean|+getOpenAiAnswer(): Promise&lt;string&gt;;+getSpeechUrl(): Promise&lt;string&gt;;+getTextFromSpeech(): Promise&lt;any&gt;]
+[LAppDelegate|+_cubismOption: Option;+_view: LAppView;+_captured: boolean;+_mouseX: number;+_mouseY: number;+_isEnd: boolean;+_textureManager: LAppTextureManager|+static getInstance(): LAppDelegate;+static releaseInstance(): void;+initialize(): boolean;+onResize(): void;+release(): void;+run(): void;+createShader(): WebGLProgram;+getView(): LAppView;+getTextureManager(): LAppTextureManager;+startVoiceConversation(): void;+initializeCubism(): void;-_resizeCanvas(): void]
+[LAppLive2DManager|+_viewMatrix: CubismMatrix44;+_models: csmVector&lt;LAppModel&gt;;+_sceneIndex: number;+_finishedMotion: (self: ACubismMotion) =&gt; void|+static getInstance(): LAppLive2DManager;+static releaseInstance(): void;+getModel(): LAppModel;+releaseAllModel(): void;+onDrag(): void;+onTap(): void;+startVoiceConversation(): void;+onUpdate(): void;+nextScene(): void;+changeScene(): void;+setViewMatrix(): void]
+[LAppModel|-_audioSrc: any;+_modelSetting: ICubismModelSetting;+_modelHomeDir: string;+_userTimeSeconds: number;+_eyeBlinkIds: csmVector&lt;CubismId&gt;;+_lipSyncIds: csmVector&lt;CubismId&gt;;+_motions: csmMap&lt;string, ACubismMotion&gt;;+_expressions: csmMap&lt;string, ACubismMotion&gt;;+_hitArea: csmVector&lt;csmRect&gt;;+_userArea: csmVector&lt;csmRect&gt;;+_idParamAngleX: CubismId;+_idParamAngleY: CubismId;+_idParamAngleZ: CubismId;+_idParamEyeBallX: CubismId;+_idParamEyeBallY: CubismId;+_idParamBodyAngleX: CubismId;+_state: number;+_expressionCount: number;+_textureCount: number;+_motionCount: number;+_allMotionCount: number;+_wavFileHandler: LAppWavFileHandler|+loadAssets(): void;-setupModel(): void;-setupTextures(): void;+reloadRenderer(): void;+update(): void;+startMotion(): any;+startRandomMotion(): any;+setExpression(): void;+setRandomExpression(): void;+motionEventFired(): void;+hitTest(): boolean;+preLoadMotionGroup(): void;+releaseMotions(): void;+releaseExpressions(): void;+doDraw(): void;+draw(): void]
+[&lt;enumeration&gt;LoadStep|LoadAssets;LoadModel;WaitLoadModel;LoadExpression;WaitLoadExpression;LoadPhysics;WaitLoadPhysics;LoadPose;WaitLoadPose;SetupEyeBlink;SetupBreath;LoadUserData;WaitLoadUserData;SetupEyeBlinkIds;SetupLipSyncIds;SetupLayout;LoadMotion;WaitLoadMotion;CompleteInitialize;CompleteSetupModel;LoadTexture;WaitLoadTexture;CompleteSetup]
+[CubismUserModel]&lt;:-[LAppModel]
+[LAppPal|+static lastUpdate: number;+static s_currentFrame: number;+static s_lastFrame: number;+static s_deltaTime: number|+static loadFileAsBytes(): void;+static getDeltaTime(): number;+static updateTime(): void;+static printMessage(): void]
+[LAppSprite|+_texture: WebGLTexture;+_vertexBuffer: WebGLBuffer;+_uvBuffer: WebGLBuffer;+_indexBuffer: WebGLBuffer;+_rect: Rect;+_positionLocation: number;+_uvLocation: number;+_textureLocation: WebGLUniformLocation;+_positionArray: Float32Array;+_uvArray: Float32Array;+_indexArray: Uint16Array;+_firstDraw: boolean|+release(): void;+getTexture(): WebGLTexture;+render(): void;+isHit(): boolean]
+[Rect|+left: number;+right: number;+up: number;+down: number|]
+[LAppTextureManager|+_textures: csmVector&lt;TextureInfo&gt;|+release(): void;+createTextureFromPngFile(): void;+releaseTextures(): void;+releaseTextureByTexture(): void;+releaseTextureByFilePath(): void]
+[TextureInfo|+img: HTMLImageElement;+id: WebGLTexture;+width: number;+height: number;+usePremultply: boolean;+fileName: string|]
+[LAppView|+_touchManager: TouchManager;+_deviceToScreen: CubismMatrix44;+_viewMatrix: CubismViewMatrix;+_programId: WebGLProgram;+_back: LAppSprite;+_gear: LAppSprite;+_changeModel: boolean;+_isClick: boolean|+initialize(): void;+release(): void;+render(): void;+initializeSprite(): void;+onTouchesBegan(): void;+onTouchesMoved(): void;+onTouchesEnded(): void;+transformViewX(): number;+transformViewY(): number;+transformScreenX(): number;+transformScreenY(): number]
+[LAppWavFileHandler|+_pcmData: Float32Array\[\];+_userTimeSeconds: number;+_lastRms: number;+_sampleOffset: number;+_wavFileInfo: WavFileInfo;+_byteReader: ByteReader;+_loadFiletoBytes: (arrayBuffer: ArrayBuffer, length: number) =&gt; void|+static getInstance(): LAppWavFileHandler;+static releaseInstance(): void;+update(): boolean;+start(): void;+getRms(): number;+loadWavFile(): boolean;+getPcmSample(): number;+releasePcmData(): void]
+[WavFileInfo|+_fileName: string;+_numberOfChannels: number;+_bitsPerSample: number;+_samplingRate: number;+_samplesPerChannel: number|]
+[ByteReader|+_fileByte: ArrayBuffer;+_fileDataView: DataView;+_fileSize: number;+_readOffset: number|+get8(): number;+get16LittleEndian(): number;+get24LittleEndian(): number;+get32LittleEndian(): number;+getCheckSignature(): boolean]
+[TouchManager|+_startY: number;+_startX: number;+_lastX: number;+_lastY: number;+_lastX1: number;+_lastY1: number;+_lastX2: number;+_lastY2: number;+_lastTouchDistance: number;+_deltaX: number;+_deltaY: number;+_scale: number;+_touchSingle: boolean;+_flipAvailable: boolean|+getCenterX(): number;+getCenterY(): number;+getDeltaX(): number;+getDeltaY(): number;+getStartX(): number;+getStartY(): number;+getScale(): number;+getX(): number;+getY(): number;+getX1(): number;+getY1(): number;+getX2(): number;+getY2(): number;+isSingleTouch(): boolean;+isFlickAvailable(): boolean;+disableFlick(): void;+touchesBegan(): void;+touchesMoved(): void;+getFlickDistance(): number;+calculateDistance(): number;+calculateMovingAmount(): number]</desc>
+<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="bold" font-style="normal">
+<g transform="translate(0.5, 0.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#33322E">
+<g stroke="transparent" fill="transparent">
+<rect x="0.0" y="0.0" height="1317.0" width="5146.5" stroke="none"></rect>
+</g>
+<g transform="translate(8, 8)" fill="#33322E">
+<g transform="translate(20, 20)" fill="#eee8d5" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+<path d="M4888.0 322.8 L4888 608 L4888 628 L4888.0 628.0 " fill="none"></path>
+<path d="M4893.3 322.8 L4888.0 322.8 L4882.7 322.8 L4888.0 309.5 Z"></path>
+<g data-name="AzureAi">
+<g fill="#eee8d5" stroke="#33322E" data-name="AzureAi">
+<rect x="0.0" y="203.0" height="183.0" width="320.0" data-name="AzureAi"></rect>
+<path d="M0.0 234.0 L320.0 234.0" fill="none" data-name="AzureAi"></path>
+<path d="M0.0 325.0 L320.0 325.0" fill="none" data-name="AzureAi"></path>
+</g>
+<g transform="translate(0, 203)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="AzureAi">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="AzureAi">
+<a id="src/azureai.ts.AzureAi" xlink:href="src/azureai.ts"><text x="152.0" y="13.5" stroke="none" text-anchor="middle" data-name="AzureAi">AzureAi</text></a>
+
+</g>
+</g>
+<g transform="translate(0, 234)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AzureAi">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AzureAi">
+<text x="0.0" y="13.5" stroke="none" data-name="AzureAi">-_openaiurl: string</text>
+<text x="0.0" y="28.5" stroke="none" data-name="AzureAi">-_openaipikey: string</text>
+<text x="0.0" y="43.5" stroke="none" data-name="AzureAi">-_ttsapikey: string</text>
+<text x="0.0" y="58.5" stroke="none" data-name="AzureAi">-_ttsregion: string</text>
+<text x="0.0" y="73.5" stroke="none" data-name="AzureAi">-_inProgress: boolean</text>
+
+</g>
+</g>
+<g transform="translate(0, 325)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="AzureAi">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="AzureAi">
+<text x="0.0" y="13.5" stroke="none" data-name="AzureAi">+getOpenAiAnswer(): Promise&lt;string&gt;</text>
+<text x="0.0" y="28.5" stroke="none" data-name="AzureAi">+getSpeechUrl(): Promise&lt;string&gt;</text>
+<text x="0.0" y="43.5" stroke="none" data-name="AzureAi">+getTextFromSpeech(): Promise&lt;any&gt;</text>
+
+</g>
+</g>
+</g>
+<g data-name="LAppDelegate">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppDelegate">
+<rect x="360.0" y="120.0" height="348.0" width="374.0" data-name="LAppDelegate"></rect>
+<path d="M360.0 151.0 L734.0 151.0" fill="none" data-name="LAppDelegate"></path>
+<path d="M360.0 272.0 L734.0 272.0" fill="none" data-name="LAppDelegate"></path>
+</g>
+<g transform="translate(360, 120)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppDelegate">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppDelegate">
+<a id="src/lappdelegate.ts.LAppDelegate" xlink:href="src/lappdelegate.ts"><text x="179.0" y="13.5" stroke="none" text-anchor="middle" data-name="LAppDelegate">LAppDelegate</text></a>
+
+</g>
+</g>
+<g transform="translate(360, 151)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppDelegate">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppDelegate">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppDelegate">+_cubismOption: Option</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppDelegate">+_view: LAppView</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppDelegate">+_captured: boolean</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppDelegate">+_mouseX: number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppDelegate">+_mouseY: number</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppDelegate">+_isEnd: boolean</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppDelegate">+_textureManager: LAppTextureManager</text>
+
+</g>
+</g>
+<g transform="translate(360, 272)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppDelegate">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppDelegate">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppDelegate">+static getInstance(): LAppDelegate</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppDelegate">+static releaseInstance(): void</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppDelegate">+initialize(): boolean</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppDelegate">+onResize(): void</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppDelegate">+release(): void</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppDelegate">+run(): void</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppDelegate">+createShader(): WebGLProgram</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppDelegate">+getView(): LAppView</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LAppDelegate">+getTextureManager(): LAppTextureManager</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LAppDelegate">+startVoiceConversation(): void</text>
+<text x="0.0" y="163.5" stroke="none" data-name="LAppDelegate">+initializeCubism(): void</text>
+<text x="0.0" y="178.5" stroke="none" data-name="LAppDelegate">-_resizeCanvas(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="LAppLive2DManager">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppLive2DManager">
+<rect x="774.0" y="150.0" height="288.0" width="397.0" data-name="LAppLive2DManager"></rect>
+<path d="M774.0 181.0 L1171.0 181.0" fill="none" data-name="LAppLive2DManager"></path>
+<path d="M774.0 257.0 L1171.0 257.0" fill="none" data-name="LAppLive2DManager"></path>
+</g>
+<g transform="translate(774, 150)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppLive2DManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppLive2DManager">
+<a id="src/lapplive2dmanager.ts.LAppLive2DManager" xlink:href="src/lapplive2dmanager.ts"><text x="190.5" y="13.5" stroke="none" text-anchor="middle" data-name="LAppLive2DManager">LAppLive2DManager</text></a>
+
+</g>
+</g>
+<g transform="translate(774, 181)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppLive2DManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppLive2DManager">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppLive2DManager">+_viewMatrix: CubismMatrix44</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppLive2DManager">+_models: csmVector&lt;LAppModel&gt;</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppLive2DManager">+_sceneIndex: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppLive2DManager">+_finishedMotion: (self: ACubismMotion) =&gt; void</text>
+
+</g>
+</g>
+<g transform="translate(774, 257)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppLive2DManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppLive2DManager">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppLive2DManager">+static getInstance(): LAppLive2DManager</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppLive2DManager">+static releaseInstance(): void</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppLive2DManager">+getModel(): LAppModel</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppLive2DManager">+releaseAllModel(): void</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppLive2DManager">+onDrag(): void</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppLive2DManager">+onTap(): void</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppLive2DManager">+startVoiceConversation(): void</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppLive2DManager">+onUpdate(): void</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LAppLive2DManager">+nextScene(): void</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LAppLive2DManager">+changeScene(): void</text>
+<text x="0.0" y="163.5" stroke="none" data-name="LAppLive2DManager">+setViewMatrix(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="LAppModel">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppModel">
+<rect x="4686.0" y="628.0" height="633.0" width="405.0" data-name="LAppModel"></rect>
+<path d="M4686.0 659.0 L5091.0 659.0" fill="none" data-name="LAppModel"></path>
+<path d="M4686.0 1005.0 L5091.0 1005.0" fill="none" data-name="LAppModel"></path>
+</g>
+<g transform="translate(4686, 628)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppModel">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppModel">
+<a id="src/lappmodel.ts.LAppModel" xlink:href="src/lappmodel.ts"><text x="194.5" y="13.5" stroke="none" text-anchor="middle" data-name="LAppModel">LAppModel</text></a>
+
+</g>
+</g>
+<g transform="translate(4686, 659)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppModel">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppModel">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppModel">-_audioSrc: any</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppModel">+_modelSetting: ICubismModelSetting</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppModel">+_modelHomeDir: string</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppModel">+_userTimeSeconds: number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppModel">+_eyeBlinkIds: csmVector&lt;CubismId&gt;</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppModel">+_lipSyncIds: csmVector&lt;CubismId&gt;</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppModel">+_motions: csmMap&lt;string, ACubismMotion&gt;</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppModel">+_expressions: csmMap&lt;string, ACubismMotion&gt;</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LAppModel">+_hitArea: csmVector&lt;csmRect&gt;</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LAppModel">+_userArea: csmVector&lt;csmRect&gt;</text>
+<text x="0.0" y="163.5" stroke="none" data-name="LAppModel">+_idParamAngleX: CubismId</text>
+<text x="0.0" y="178.5" stroke="none" data-name="LAppModel">+_idParamAngleY: CubismId</text>
+<text x="0.0" y="193.5" stroke="none" data-name="LAppModel">+_idParamAngleZ: CubismId</text>
+<text x="0.0" y="208.5" stroke="none" data-name="LAppModel">+_idParamEyeBallX: CubismId</text>
+<text x="0.0" y="223.5" stroke="none" data-name="LAppModel">+_idParamEyeBallY: CubismId</text>
+<text x="0.0" y="238.5" stroke="none" data-name="LAppModel">+_idParamBodyAngleX: CubismId</text>
+<text x="0.0" y="253.5" stroke="none" data-name="LAppModel">+_state: number</text>
+<text x="0.0" y="268.5" stroke="none" data-name="LAppModel">+_expressionCount: number</text>
+<text x="0.0" y="283.5" stroke="none" data-name="LAppModel">+_textureCount: number</text>
+<text x="0.0" y="298.5" stroke="none" data-name="LAppModel">+_motionCount: number</text>
+<text x="0.0" y="313.5" stroke="none" data-name="LAppModel">+_allMotionCount: number</text>
+<text x="0.0" y="328.5" stroke="none" data-name="LAppModel">+_wavFileHandler: LAppWavFileHandler</text>
+
+</g>
+</g>
+<g transform="translate(4686, 1005)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppModel">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppModel">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppModel">+loadAssets(): void</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppModel">-setupModel(): void</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppModel">-setupTextures(): void</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppModel">+reloadRenderer(): void</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppModel">+update(): void</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppModel">+startMotion(): any</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppModel">+startRandomMotion(): any</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppModel">+setExpression(): void</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LAppModel">+setRandomExpression(): void</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LAppModel">+motionEventFired(): void</text>
+<text x="0.0" y="163.5" stroke="none" data-name="LAppModel">+hitTest(): boolean</text>
+<text x="0.0" y="178.5" stroke="none" data-name="LAppModel">+preLoadMotionGroup(): void</text>
+<text x="0.0" y="193.5" stroke="none" data-name="LAppModel">+releaseMotions(): void</text>
+<text x="0.0" y="208.5" stroke="none" data-name="LAppModel">+releaseExpressions(): void</text>
+<text x="0.0" y="223.5" stroke="none" data-name="LAppModel">+doDraw(): void</text>
+<text x="0.0" y="238.5" stroke="none" data-name="LAppModel">+draw(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="LAppPal">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppPal">
+<rect x="1211.0" y="203.0" height="183.0" width="268.0" data-name="LAppPal"></rect>
+<path d="M1211.0 234.0 L1479.0 234.0" fill="none" data-name="LAppPal"></path>
+<path d="M1211.0 310.0 L1479.0 310.0" fill="none" data-name="LAppPal"></path>
+</g>
+<g transform="translate(1211, 203)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppPal">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppPal">
+<a id="src/lapppal.ts.LAppPal" xlink:href="src/lapppal.ts"><text x="126.0" y="13.5" stroke="none" text-anchor="middle" data-name="LAppPal">LAppPal</text></a>
+
+</g>
+</g>
+<g transform="translate(1211, 234)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppPal">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppPal">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppPal">+static lastUpdate: number</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppPal">+static s_currentFrame: number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppPal">+static s_lastFrame: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppPal">+static s_deltaTime: number</text>
+
+</g>
+</g>
+<g transform="translate(1211, 310)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppPal">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppPal">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppPal">+static loadFileAsBytes(): void</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppPal">+static getDeltaTime(): number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppPal">+static updateTime(): void</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppPal">+static printMessage(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="LAppSprite">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppSprite">
+<rect x="1519.0" y="143.0" height="303.0" width="357.0" data-name="LAppSprite"></rect>
+<path d="M1519.0 174.0 L1876.0 174.0" fill="none" data-name="LAppSprite"></path>
+<path d="M1519.0 370.0 L1876.0 370.0" fill="none" data-name="LAppSprite"></path>
+</g>
+<g transform="translate(1519, 143)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppSprite">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppSprite">
+<a id="src/lappsprite.ts.LAppSprite" xlink:href="src/lappsprite.ts"><text x="170.5" y="13.5" stroke="none" text-anchor="middle" data-name="LAppSprite">LAppSprite</text></a>
+
+</g>
+</g>
+<g transform="translate(1519, 174)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppSprite">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppSprite">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppSprite">+_texture: WebGLTexture</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppSprite">+_vertexBuffer: WebGLBuffer</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppSprite">+_uvBuffer: WebGLBuffer</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppSprite">+_indexBuffer: WebGLBuffer</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppSprite">+_rect: Rect</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppSprite">+_positionLocation: number</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppSprite">+_uvLocation: number</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppSprite">+_textureLocation: WebGLUniformLocation</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LAppSprite">+_positionArray: Float32Array</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LAppSprite">+_uvArray: Float32Array</text>
+<text x="0.0" y="163.5" stroke="none" data-name="LAppSprite">+_indexArray: Uint16Array</text>
+<text x="0.0" y="178.5" stroke="none" data-name="LAppSprite">+_firstDraw: boolean</text>
+
+</g>
+</g>
+<g transform="translate(1519, 370)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppSprite">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppSprite">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppSprite">+release(): void</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppSprite">+getTexture(): WebGLTexture</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppSprite">+render(): void</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppSprite">+isHit(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="Rect">
+<g fill="#eee8d5" stroke="#33322E" data-name="Rect">
+<rect x="1916.0" y="237.0" height="115.0" width="138.0" data-name="Rect"></rect>
+<path d="M1916.0 268.0 L2054.0 268.0" fill="none" data-name="Rect"></path>
+<path d="M1916.0 344.0 L2054.0 344.0" fill="none" data-name="Rect"></path>
+</g>
+<g transform="translate(1916, 237)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="Rect">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Rect">
+<a id="src/lappsprite.ts.Rect" xlink:href="src/lappsprite.ts"><text x="61.0" y="13.5" stroke="none" text-anchor="middle" data-name="Rect">Rect</text></a>
+
+</g>
+</g>
+<g transform="translate(1916, 268)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Rect">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="Rect">
+<text x="0.0" y="13.5" stroke="none" data-name="Rect">+left: number</text>
+<text x="0.0" y="28.5" stroke="none" data-name="Rect">+right: number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="Rect">+up: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="Rect">+down: number</text>
+
+</g>
+</g>
+<g transform="translate(1916, 344)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Rect">
+<g transform="translate(8, 8)" fill="#33322E" data-name="Rect">
+
+</g>
+</g>
+</g>
+<g data-name="LAppTextureManager">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppTextureManager">
+<rect x="2094.0" y="218.0" height="153.0" width="303.0" data-name="LAppTextureManager"></rect>
+<path d="M2094.0 249.0 L2397.0 249.0" fill="none" data-name="LAppTextureManager"></path>
+<path d="M2094.0 280.0 L2397.0 280.0" fill="none" data-name="LAppTextureManager"></path>
+</g>
+<g transform="translate(2094, 218)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppTextureManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppTextureManager">
+<a id="src/lapptexturemanager.ts.LAppTextureManager" xlink:href="src/lapptexturemanager.ts"><text x="143.5" y="13.5" stroke="none" text-anchor="middle" data-name="LAppTextureManager">LAppTextureManager</text></a>
+
+</g>
+</g>
+<g transform="translate(2094, 249)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppTextureManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppTextureManager">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppTextureManager">+_textures: csmVector&lt;TextureInfo&gt;</text>
+
+</g>
+</g>
+<g transform="translate(2094, 280)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppTextureManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppTextureManager">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppTextureManager">+release(): void</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppTextureManager">+createTextureFromPngFile(): void</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppTextureManager">+releaseTextures(): void</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppTextureManager">+releaseTextureByTexture(): void</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppTextureManager">+releaseTextureByFilePath(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="TextureInfo">
+<g fill="#eee8d5" stroke="#33322E" data-name="TextureInfo">
+<rect x="2437.0" y="222.0" height="145.0" width="223.0" data-name="TextureInfo"></rect>
+<path d="M2437.0 253.0 L2660.0 253.0" fill="none" data-name="TextureInfo"></path>
+<path d="M2437.0 359.0 L2660.0 359.0" fill="none" data-name="TextureInfo"></path>
+</g>
+<g transform="translate(2437, 222)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="TextureInfo">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="TextureInfo">
+<a id="src/lapptexturemanager.ts.TextureInfo" xlink:href="src/lapptexturemanager.ts"><text x="103.5" y="13.5" stroke="none" text-anchor="middle" data-name="TextureInfo">TextureInfo</text></a>
+
+</g>
+</g>
+<g transform="translate(2437, 253)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TextureInfo">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TextureInfo">
+<text x="0.0" y="13.5" stroke="none" data-name="TextureInfo">+img: HTMLImageElement</text>
+<text x="0.0" y="28.5" stroke="none" data-name="TextureInfo">+id: WebGLTexture</text>
+<text x="0.0" y="43.5" stroke="none" data-name="TextureInfo">+width: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="TextureInfo">+height: number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="TextureInfo">+usePremultply: boolean</text>
+<text x="0.0" y="88.5" stroke="none" data-name="TextureInfo">+fileName: string</text>
+
+</g>
+</g>
+<g transform="translate(2437, 359)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TextureInfo">
+<g transform="translate(8, 8)" fill="#33322E" data-name="TextureInfo">
+
+</g>
+</g>
+</g>
+<g data-name="LAppView">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppView">
+<rect x="2700.0" y="120.0" height="348.0" width="301.0" data-name="LAppView"></rect>
+<path d="M2700.0 151.0 L3001.0 151.0" fill="none" data-name="LAppView"></path>
+<path d="M2700.0 287.0 L3001.0 287.0" fill="none" data-name="LAppView"></path>
+</g>
+<g transform="translate(2700, 120)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppView">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppView">
+<a id="src/lappview.ts.LAppView" xlink:href="src/lappview.ts"><text x="142.5" y="13.5" stroke="none" text-anchor="middle" data-name="LAppView">LAppView</text></a>
+
+</g>
+</g>
+<g transform="translate(2700, 151)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppView">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppView">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppView">+_touchManager: TouchManager</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppView">+_deviceToScreen: CubismMatrix44</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppView">+_viewMatrix: CubismViewMatrix</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppView">+_programId: WebGLProgram</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppView">+_back: LAppSprite</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppView">+_gear: LAppSprite</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppView">+_changeModel: boolean</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppView">+_isClick: boolean</text>
+
+</g>
+</g>
+<g transform="translate(2700, 287)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppView">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppView">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppView">+initialize(): void</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppView">+release(): void</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppView">+render(): void</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppView">+initializeSprite(): void</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppView">+onTouchesBegan(): void</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppView">+onTouchesMoved(): void</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppView">+onTouchesEnded(): void</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppView">+transformViewX(): number</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LAppView">+transformViewY(): number</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LAppView">+transformScreenX(): number</text>
+<text x="0.0" y="163.5" stroke="none" data-name="LAppView">+transformScreenY(): number</text>
+
+</g>
+</g>
+</g>
+<g data-name="LAppWavFileHandler">
+<g fill="#eee8d5" stroke="#33322E" data-name="LAppWavFileHandler">
+<rect x="3041.0" y="150.0" height="288.0" width="558.0" data-name="LAppWavFileHandler"></rect>
+<path d="M3041.0 181.0 L3599.0 181.0" fill="none" data-name="LAppWavFileHandler"></path>
+<path d="M3041.0 302.0 L3599.0 302.0" fill="none" data-name="LAppWavFileHandler"></path>
+</g>
+<g transform="translate(3041, 150)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="LAppWavFileHandler">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LAppWavFileHandler">
+<a id="src/lappwavfilehandler.ts.LAppWavFileHandler" xlink:href="src/lappwavfilehandler.ts"><text x="271.0" y="13.5" stroke="none" text-anchor="middle" data-name="LAppWavFileHandler">LAppWavFileHandler</text></a>
+
+</g>
+</g>
+<g transform="translate(3041, 181)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppWavFileHandler">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppWavFileHandler">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppWavFileHandler">+_pcmData: Float32Array[]</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppWavFileHandler">+_userTimeSeconds: number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppWavFileHandler">+_lastRms: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppWavFileHandler">+_sampleOffset: number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppWavFileHandler">+_wavFileInfo: WavFileInfo</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppWavFileHandler">+_byteReader: ByteReader</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppWavFileHandler">+_loadFiletoBytes: (arrayBuffer: ArrayBuffer, length: number) =&gt; void</text>
+
+</g>
+</g>
+<g transform="translate(3041, 302)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LAppWavFileHandler">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LAppWavFileHandler">
+<text x="0.0" y="13.5" stroke="none" data-name="LAppWavFileHandler">+static getInstance(): LAppWavFileHandler</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LAppWavFileHandler">+static releaseInstance(): void</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LAppWavFileHandler">+update(): boolean</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LAppWavFileHandler">+start(): void</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LAppWavFileHandler">+getRms(): number</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LAppWavFileHandler">+loadWavFile(): boolean</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LAppWavFileHandler">+getPcmSample(): number</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LAppWavFileHandler">+releasePcmData(): void</text>
+
+</g>
+</g>
+</g>
+<g data-name="WavFileInfo">
+<g fill="#eee8d5" stroke="#33322E" data-name="WavFileInfo">
+<rect x="3639.0" y="229.0" height="130.0" width="265.0" data-name="WavFileInfo"></rect>
+<path d="M3639.0 260.0 L3904.0 260.0" fill="none" data-name="WavFileInfo"></path>
+<path d="M3639.0 351.0 L3904.0 351.0" fill="none" data-name="WavFileInfo"></path>
+</g>
+<g transform="translate(3639, 229)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="WavFileInfo">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="WavFileInfo">
+<a id="src/lappwavfilehandler.ts.WavFileInfo" xlink:href="src/lappwavfilehandler.ts"><text x="124.5" y="13.5" stroke="none" text-anchor="middle" data-name="WavFileInfo">WavFileInfo</text></a>
+
+</g>
+</g>
+<g transform="translate(3639, 260)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="WavFileInfo">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="WavFileInfo">
+<text x="0.0" y="13.5" stroke="none" data-name="WavFileInfo">+_fileName: string</text>
+<text x="0.0" y="28.5" stroke="none" data-name="WavFileInfo">+_numberOfChannels: number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="WavFileInfo">+_bitsPerSample: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="WavFileInfo">+_samplingRate: number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="WavFileInfo">+_samplesPerChannel: number</text>
+
+</g>
+</g>
+<g transform="translate(3639, 351)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="WavFileInfo">
+<g transform="translate(8, 8)" fill="#33322E" data-name="WavFileInfo">
+
+</g>
+</g>
+</g>
+<g data-name="ByteReader">
+<g fill="#eee8d5" stroke="#33322E" data-name="ByteReader">
+<rect x="3944.0" y="195.0" height="198.0" width="263.0" data-name="ByteReader"></rect>
+<path d="M3944.0 226.0 L4207.0 226.0" fill="none" data-name="ByteReader"></path>
+<path d="M3944.0 302.0 L4207.0 302.0" fill="none" data-name="ByteReader"></path>
+</g>
+<g transform="translate(3944, 195)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="ByteReader">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="ByteReader">
+<a id="src/lappwavfilehandler.ts.ByteReader" xlink:href="src/lappwavfilehandler.ts"><text x="123.5" y="13.5" stroke="none" text-anchor="middle" data-name="ByteReader">ByteReader</text></a>
+
+</g>
+</g>
+<g transform="translate(3944, 226)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ByteReader">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ByteReader">
+<text x="0.0" y="13.5" stroke="none" data-name="ByteReader">+_fileByte: ArrayBuffer</text>
+<text x="0.0" y="28.5" stroke="none" data-name="ByteReader">+_fileDataView: DataView</text>
+<text x="0.0" y="43.5" stroke="none" data-name="ByteReader">+_fileSize: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="ByteReader">+_readOffset: number</text>
+
+</g>
+</g>
+<g transform="translate(3944, 302)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="ByteReader">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="ByteReader">
+<text x="0.0" y="13.5" stroke="none" data-name="ByteReader">+get8(): number</text>
+<text x="0.0" y="28.5" stroke="none" data-name="ByteReader">+get16LittleEndian(): number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="ByteReader">+get24LittleEndian(): number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="ByteReader">+get32LittleEndian(): number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="ByteReader">+getCheckSignature(): boolean</text>
+
+</g>
+</g>
+</g>
+<g data-name="TouchManager">
+<g fill="#eee8d5" stroke="#33322E" data-name="TouchManager">
+<rect x="4247.0" y="0.0" height="588.0" width="296.0" data-name="TouchManager"></rect>
+<path d="M4247.0 31.0 L4543.0 31.0" fill="none" data-name="TouchManager"></path>
+<path d="M4247.0 257.0 L4543.0 257.0" fill="none" data-name="TouchManager"></path>
+</g>
+<g transform="translate(4247, 0)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="TouchManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="TouchManager">
+<a id="src/touchmanager.ts.TouchManager" xlink:href="src/touchmanager.ts"><text x="140.0" y="13.5" stroke="none" text-anchor="middle" data-name="TouchManager">TouchManager</text></a>
+
+</g>
+</g>
+<g transform="translate(4247, 31)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TouchManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TouchManager">
+<text x="0.0" y="13.5" stroke="none" data-name="TouchManager">+_startY: number</text>
+<text x="0.0" y="28.5" stroke="none" data-name="TouchManager">+_startX: number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="TouchManager">+_lastX: number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="TouchManager">+_lastY: number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="TouchManager">+_lastX1: number</text>
+<text x="0.0" y="88.5" stroke="none" data-name="TouchManager">+_lastY1: number</text>
+<text x="0.0" y="103.5" stroke="none" data-name="TouchManager">+_lastX2: number</text>
+<text x="0.0" y="118.5" stroke="none" data-name="TouchManager">+_lastY2: number</text>
+<text x="0.0" y="133.5" stroke="none" data-name="TouchManager">+_lastTouchDistance: number</text>
+<text x="0.0" y="148.5" stroke="none" data-name="TouchManager">+_deltaX: number</text>
+<text x="0.0" y="163.5" stroke="none" data-name="TouchManager">+_deltaY: number</text>
+<text x="0.0" y="178.5" stroke="none" data-name="TouchManager">+_scale: number</text>
+<text x="0.0" y="193.5" stroke="none" data-name="TouchManager">+_touchSingle: boolean</text>
+<text x="0.0" y="208.5" stroke="none" data-name="TouchManager">+_flipAvailable: boolean</text>
+
+</g>
+</g>
+<g transform="translate(4247, 257)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="TouchManager">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="TouchManager">
+<text x="0.0" y="13.5" stroke="none" data-name="TouchManager">+getCenterX(): number</text>
+<text x="0.0" y="28.5" stroke="none" data-name="TouchManager">+getCenterY(): number</text>
+<text x="0.0" y="43.5" stroke="none" data-name="TouchManager">+getDeltaX(): number</text>
+<text x="0.0" y="58.5" stroke="none" data-name="TouchManager">+getDeltaY(): number</text>
+<text x="0.0" y="73.5" stroke="none" data-name="TouchManager">+getStartX(): number</text>
+<text x="0.0" y="88.5" stroke="none" data-name="TouchManager">+getStartY(): number</text>
+<text x="0.0" y="103.5" stroke="none" data-name="TouchManager">+getScale(): number</text>
+<text x="0.0" y="118.5" stroke="none" data-name="TouchManager">+getX(): number</text>
+<text x="0.0" y="133.5" stroke="none" data-name="TouchManager">+getY(): number</text>
+<text x="0.0" y="148.5" stroke="none" data-name="TouchManager">+getX1(): number</text>
+<text x="0.0" y="163.5" stroke="none" data-name="TouchManager">+getY1(): number</text>
+<text x="0.0" y="178.5" stroke="none" data-name="TouchManager">+getX2(): number</text>
+<text x="0.0" y="193.5" stroke="none" data-name="TouchManager">+getY2(): number</text>
+<text x="0.0" y="208.5" stroke="none" data-name="TouchManager">+isSingleTouch(): boolean</text>
+<text x="0.0" y="223.5" stroke="none" data-name="TouchManager">+isFlickAvailable(): boolean</text>
+<text x="0.0" y="238.5" stroke="none" data-name="TouchManager">+disableFlick(): void</text>
+<text x="0.0" y="253.5" stroke="none" data-name="TouchManager">+touchesBegan(): void</text>
+<text x="0.0" y="268.5" stroke="none" data-name="TouchManager">+touchesMoved(): void</text>
+<text x="0.0" y="283.5" stroke="none" data-name="TouchManager">+getFlickDistance(): number</text>
+<text x="0.0" y="298.5" stroke="none" data-name="TouchManager">+calculateDistance(): number</text>
+<text x="0.0" y="313.5" stroke="none" data-name="TouchManager">+calculateMovingAmount(): number</text>
+
+</g>
+</g>
+</g>
+<g data-name="LoadStep">
+<g fill="lightgreen" stroke="#33322E" data-name="LoadStep">
+<rect x="4583.0" y="98.0" height="392.0" width="185.0" data-name="LoadStep"></rect>
+<path d="M4583.0 129.0 L4768.0 129.0" fill="none" data-name="LoadStep"></path>
+</g>
+<g transform="translate(4583, 98)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LoadStep">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="LoadStep">
+<a id=".LoadStep" xlink:href=""><text x="84.5" y="13.5" stroke="none" text-anchor="middle" data-name="LoadStep">LoadStep</text></a>
+
+</g>
+</g>
+<g transform="translate(4583, 129)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="LoadStep">
+<g transform="translate(8, 8)" fill="#33322E" text-align="left" data-name="LoadStep">
+<text x="0.0" y="13.5" stroke="none" data-name="LoadStep">LoadAssets</text>
+<text x="0.0" y="28.5" stroke="none" data-name="LoadStep">LoadModel</text>
+<text x="0.0" y="43.5" stroke="none" data-name="LoadStep">WaitLoadModel</text>
+<text x="0.0" y="58.5" stroke="none" data-name="LoadStep">LoadExpression</text>
+<text x="0.0" y="73.5" stroke="none" data-name="LoadStep">WaitLoadExpression</text>
+<text x="0.0" y="88.5" stroke="none" data-name="LoadStep">LoadPhysics</text>
+<text x="0.0" y="103.5" stroke="none" data-name="LoadStep">WaitLoadPhysics</text>
+<text x="0.0" y="118.5" stroke="none" data-name="LoadStep">LoadPose</text>
+<text x="0.0" y="133.5" stroke="none" data-name="LoadStep">WaitLoadPose</text>
+<text x="0.0" y="148.5" stroke="none" data-name="LoadStep">SetupEyeBlink</text>
+<text x="0.0" y="163.5" stroke="none" data-name="LoadStep">SetupBreath</text>
+<text x="0.0" y="178.5" stroke="none" data-name="LoadStep">LoadUserData</text>
+<text x="0.0" y="193.5" stroke="none" data-name="LoadStep">WaitLoadUserData</text>
+<text x="0.0" y="208.5" stroke="none" data-name="LoadStep">SetupEyeBlinkIds</text>
+<text x="0.0" y="223.5" stroke="none" data-name="LoadStep">SetupLipSyncIds</text>
+<text x="0.0" y="238.5" stroke="none" data-name="LoadStep">SetupLayout</text>
+<text x="0.0" y="253.5" stroke="none" data-name="LoadStep">LoadMotion</text>
+<text x="0.0" y="268.5" stroke="none" data-name="LoadStep">WaitLoadMotion</text>
+<text x="0.0" y="283.5" stroke="none" data-name="LoadStep">CompleteInitialize</text>
+<text x="0.0" y="298.5" stroke="none" data-name="LoadStep">CompleteSetupModel</text>
+<text x="0.0" y="313.5" stroke="none" data-name="LoadStep">LoadTexture</text>
+<text x="0.0" y="328.5" stroke="none" data-name="LoadStep">WaitLoadTexture</text>
+<text x="0.0" y="343.5" stroke="none" data-name="LoadStep">CompleteSetup</text>
+
+</g>
+</g>
+</g>
+<g data-name="CubismUserModel">
+<g fill="#eee8d5" stroke="#33322E" data-name="CubismUserModel">
+<rect x="4808.0" y="279.0" height="31.0" width="160.0" data-name="CubismUserModel"></rect>
+</g>
+<g transform="translate(4808, 279)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" data-name="CubismUserModel">
+<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="CubismUserModel">
+<text x="72.0" y="13.5" stroke="none" text-anchor="middle" data-name="CubismUserModel">CubismUserModel</text>
+
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</svg>
