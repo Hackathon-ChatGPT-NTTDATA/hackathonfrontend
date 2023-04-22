@@ -1,2 +1,22 @@
 <h1>{{titulo}}</h1>
-<p>alumnos works!</p>
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>nombre</th>
+      <th>apellido</th>
+      <th>email</th>
+      <th>creado en</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let alumno of alumnos">
+      <td>{{alumno.id}}</td>
+      <td>{{alumno.nombre}}</td>
+      <td>{{alumno.apellido}}</td>
+      <td>{{alumno.email}}</td>
+
+    </tr>
+  </tbody>
+</table>
